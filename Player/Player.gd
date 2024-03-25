@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed : int = 200
 @export var animation : AnimationPlayer
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction : Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
 	velocity = direction * speed
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d35yng7odi75g"]
+
+[ext_resource type="Script" path="res://ShadowComponent.gd" id="1_jab1n"]
+[ext_resource type="Texture2D" uid="uid://b8oaiyp1h85d7" path="res://icon.svg" id="2_wnnlh"]
+
+[node name="ShadowComponent" type="Node2D"]
+script = ExtResource("1_jab1n")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("2_wnnlh")

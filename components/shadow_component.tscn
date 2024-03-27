@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctumapp4fve76"]
+
+[ext_resource type="Script" path="res://Scripts/ShadowComponent.gd" id="1_a8mh4"]
+
+[node name="ShadowComponent" type="Node2D"]
+script = ExtResource("1_a8mh4")
+
+[node name="Shadow" type="Sprite2D" parent="."]

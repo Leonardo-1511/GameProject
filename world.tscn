@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1gaikjhfuhb2"]
+[gd_scene load_steps=7 format=3 uid="uid://c1gaikjhfuhb2"]
 
 [ext_resource type="PackedScene" uid="uid://nvcn8k4856gc" path="res://Player/Player.tscn" id="1_uh1nu"]
 [ext_resource type="Texture2D" uid="uid://oong1108mht1" path="res://assets/PixelWoods/Terrain(main)/terrain tiles.png" id="2_gaekl"]
+[ext_resource type="PackedScene" uid="uid://ctumapp4fve76" path="res://components/shadow_component.tscn" id="2_t44gl"]
+[ext_resource type="Texture2D" uid="uid://chwq1duinw7bd" path="res://assets/Self made/Shadow.png" id="3_h6wfe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qwjqv"]
 resource_name = "Terrain"
@@ -519,6 +521,13 @@ position = Vector2(347, 126)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.94, 1.94)
+
+[node name="ShadowComponent" parent="Player" instance=ExtResource("2_t44gl")]
+show_behind_parent = true
+sprite = ExtResource("3_h6wfe")
+shadowScale = Vector2(0.11, 0.11)
+shadowOffset = Vector2(0, 6)
+opacity = 0.75
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_3datf")

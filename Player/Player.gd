@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export_category("Settings")
 @export var speed : int = 200
 @export var animation: AnimationPlayer
-@export var char: EntityResource
+@export var char: CharacterResource
 
 
 func _physics_process(_delta: float) -> void:

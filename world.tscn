@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1gaikjhfuhb2"]
+[gd_scene load_steps=12 format=3 uid="uid://c1gaikjhfuhb2"]
 
-[ext_resource type="PackedScene" uid="uid://cprtb5y2ukx1a" path="res://components/save_manager.tscn" id="1_52r3u"]
 [ext_resource type="PackedScene" uid="uid://nvcn8k4856gc" path="res://Player/Player.tscn" id="1_uh1nu"]
 [ext_resource type="Texture2D" uid="uid://oong1108mht1" path="res://assets/PixelWoods/Terrain(main)/terrain tiles.png" id="2_gaekl"]
 [ext_resource type="PackedScene" uid="uid://ctumapp4fve76" path="res://components/shadow_component.tscn" id="2_t44gl"]
@@ -535,8 +534,6 @@ sources/1 = SubResource("TileSetAtlasSource_qwjqv")
 [node name="World" type="Node2D"]
 
 [node name="Managers" type="Node" parent="."]
-
-[node name="SaveManager" parent="Managers" instance=ExtResource("1_52r3u")]
 
 [node name="Player" parent="." instance=ExtResource("1_uh1nu")]
 top_level = true

@@ -5,14 +5,16 @@ signal health_changed(current_health) ## Triggers on every Health change, positi
 signal damaged(damage_amount) ## Triggers whenever the damage() function is called.
 signal death ## Triggers when the Player has exactly 0 HP. Checked on Health setter.
 
-@export var character_resource: CharacterResource
+@export var entity: Node2D
 @export var save_manager: SaveManager
-
-var max_health = character_resource.max_health
-var character_health = character_resource.health
+@onready var entity_resource: EntityResource = entity.properties
 
 
-var current_health: int = character_health:
+@onready var max_health = entity_resource.max_health
+@onready var character_health = entity_resource.health
+
+
+@onready var current_health: int = character_health:
 	set(new_health): 
 		current_health = clamp(new_health, 0, max_health)
 		emit_signal("health_changed", current_health)
@@ -22,7 +24,3 @@ var current_health: int = character_health:
 func damage(damage_amount: float) -> void:
 	current_health -= roundi(damage_amount)
 	emit_signal("damaged", damage_amount)
-
-
-func _on_save_manager_start_saving() -> void:
-	character_resource.health = character_health

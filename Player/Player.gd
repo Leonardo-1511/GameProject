@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 @export_category("Settings")
-@export var speed : int = 200
+@export var speed : float = 500.0
 @export var animation: AnimationPlayer
-@export var char: CharacterResource
+@export var properties: CharacterResource
+@export var save_manager: SaveManager
 
 
 func _physics_process(_delta: float) -> void:
@@ -24,11 +25,26 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _ready() -> void:
-	match char.character_class:
+	match properties.character_class:
 		0: pass			 # Medium Class
 		1: speed *= 0.8  # Heavy class
 		2: speed *= 1.2  # Light Class
 	
 	var player_stats := get_node("Camera2D/PlayerStats")
-	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [char.name, char.health, char.character_level, char.characterClass.keys()[char.character_class], speed]
+	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [properties.name, properties.health, properties.character_level, properties.characterClass.keys()[properties.character_class], speed]
 	player_stats.text = text
+	
+	save_manager.register(save_character)
+	
+func save_character() -> Array:
+	var player_save = PlayerSaveResource.new()
+	player_save.character = properties
+	player_save.position = transform
+	player_save.stats = {"debug": true}
+	return ["PlayerSave", player_save]
+	
+func load_character(resource: PlayerSaveResource) -> void:
+	properties = resource.character
+	transform = resource.position
+	print(resource.stats)
+	return

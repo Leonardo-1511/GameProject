@@ -5,9 +5,19 @@ signal StartSaving(resource)
 signal FinishedSaving
 
 var registered_resources = []
+var loaded_files = {}
 
 func _ready() -> void:
 	DirAccess.make_dir_absolute("user://save")
+	return
+
+##### CHECK FOR ERRORS HERE
+func load() -> void:
+	var save_files = DirAccess.get_files_at("user://save/")
+	for file in save_files:
+		var resource = ResourceLoader.load("user://save/%s" % [file])
+		loaded_files[file.trim_suffix(".tres")] = resource
+	FinishedSaving.emit()
 	return
 
 func register(resource_saver: Callable) -> void:

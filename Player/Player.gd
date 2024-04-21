@@ -35,6 +35,7 @@ func _ready() -> void:
 	player_stats.text = text
 	
 	save_manager.register(save_character)
+	save_manager.FinishedSaving.connect(load_character)
 	
 func save_character() -> Array:
 	var player_save = PlayerSaveResource.new()
@@ -43,7 +44,8 @@ func save_character() -> Array:
 	player_save.stats = {"debug": true}
 	return ["PlayerSave", player_save]
 	
-func load_character(resource: PlayerSaveResource) -> void:
+func load_character() -> void:
+	var resource = save_manager.loaded_files["PlayerSave"]
 	properties = resource.character
 	transform = resource.position
 	print(resource.stats)

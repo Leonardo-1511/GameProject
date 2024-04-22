@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @export_category("Settings")
-@export var speed : float = 500.0
 @export var animation: AnimationPlayer
 @export var properties: CharacterResource
 @export var save_manager: SaveManager
@@ -9,7 +8,7 @@ extends CharacterBody2D
 
 func _physics_process(_delta: float) -> void:
 	var direction : Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
-	velocity = direction * speed
+	velocity = direction * properties.speed
 
 	if direction.is_zero_approx():
 		animation.stop()
@@ -27,11 +26,11 @@ func _physics_process(_delta: float) -> void:
 func _ready() -> void:
 	match properties.character_class:
 		0: pass			 # Medium Class
-		1: speed *= 0.8  # Heavy class
-		2: speed *= 1.2  # Light Class
+		1: properties.speed *= 0.8  # Heavy class
+		2: properties.speed *= 1.2  # Light Class
 	
 	var player_stats := get_node("Camera2D/PlayerStats")
-	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [properties.name, properties.health, properties.character_level, properties.characterClass.keys()[properties.character_class], speed]
+	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [properties.name, properties.health, properties.character_level, properties.characterClass.keys()[properties.character_class], properties.speed]
 	player_stats.text = text
 	
 	save_manager.register(save_character)
@@ -45,8 +44,9 @@ func save_character() -> Array:
 	return ["PlayerSave", player_save]
 	
 func load_character() -> void:
-	var resource = save_manager.loaded_files["PlayerSave"]
+	var resource = save_manager.loaded_files["PlayerSave"].duplicate(true)
 	properties = resource.character
 	transform = resource.position
 	print(resource.stats)
+	_ready()
 	return

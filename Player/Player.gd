@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 
 	move_and_slide()
 
-func _ready() -> void:
+func _update_after_load() -> void:
 	match properties.character_class:
 		0: pass			 # Medium Class
 		1: properties.speed *= 0.8  # Heavy class
@@ -32,7 +32,9 @@ func _ready() -> void:
 	var player_stats := get_node("Camera2D/PlayerStats")
 	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [properties.name, properties.health, properties.character_level, properties.characterClass.keys()[properties.character_class], properties.speed]
 	player_stats.text = text
-	
+
+func _ready() -> void:
+	_update_after_load()
 	save_manager.register(save_character)
 	save_manager.FinishedSaving.connect(load_character)
 	
@@ -48,5 +50,5 @@ func load_character() -> void:
 	properties = resource.character
 	transform = resource.position
 	print(resource.stats)
-	_ready()
+	_update_after_load()
 	return

@@ -31,11 +31,17 @@ script/source = "extends Button
 @export var savemanager: SaveManager
 @export var player: CharacterBody2D
 
+var first: bool = true
+
 func _ready():
 	self.connect(\"pressed\", on_pressed)
 	
 func on_pressed():
-	savemanager.load()
+	if first:
+		savemanager.load()
+		first = false
+		return
+	savemanager.FinishedSaving.emit()
 
 func tester():
 	print(\"Test Callable called.\")

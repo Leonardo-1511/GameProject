@@ -4,7 +4,7 @@ class_name SaveManager
 signal StartSaving(resource)
 signal FinishedSaving
 
-@export_enum("tres", "res") var file_extension = "res"
+@export_enum(".tres", ".res") var file_extension = ".res"
 
 var registered_resources = []
 var loaded_files = {}

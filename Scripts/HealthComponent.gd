@@ -15,7 +15,8 @@ signal death ## Triggers when the Player has exactly 0 HP. Checked on Health set
 
 @onready var current_health: float = character_health:
 	set(new_health): 
-		current_health = clampi(new_health, 0, max_health)
+		current_health = clampf(new_health, 0, max_health)
+		entity_resource.health = current_health
 		emit_signal("health_changed", current_health)
 		if current_health <= 0: emit_signal("death")
 

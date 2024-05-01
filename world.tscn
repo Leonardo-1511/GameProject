@@ -16,8 +16,8 @@ character_class = 0
 mana_level = 5
 character_level = 5
 name = "Tester"
-max_health = 80.0
-health = 80.0
+max_health = 25.0
+health = 25.0
 speed = 500.0
 
 [sub_resource type="SystemFont" id="SystemFont_ypht7"]
@@ -655,6 +655,7 @@ opacity = 0.75
 entity = NodePath("..")
 
 [node name="HealthBarComponent" parent="Player" node_paths=PackedStringArray("health_component") instance=ExtResource("7_8xn7y")]
+position = Vector2(0, -17)
 health_component = NodePath("../HealthComponent")
 
 [node name="TileMap" type="TileMap" parent="."]

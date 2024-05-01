@@ -3,7 +3,7 @@ class_name Entity
 
 @export_enum("PLAYER", "ENEMY", "OBJECT") var entity_type: String ## Choose the type for this Object. Every option except Player will disable _physics_process(). If you need it anyways, either override the Type specific function (ex. _enemy()) or set it to Player and override the movement Handler.
 @export var properties: EntityResource 		## These are NECESSARY for every Type except Object. (Still debating whether to support Objects here or not.)
-@export var animation: AnimationPlayer 		## AnimationPlayer for the Sprites, currently 4 Animation are coded, those being: Walk_Up, Walk_Down, Walk_Left and Walk_Right.
+@export var animation: AnimationPlayer 		## AnimationPlayer for the Sprites, you need to code these Animations yourself though.
 @export var inventory: Array[ItemResource] 	## The Inventory for the Entity. Enemies should only have 1 Item, except overriden and coded otherwise.
 
 
@@ -21,11 +21,11 @@ func _enemy(): ## Type specific Function. Deactivates Physics Process
 func _object(): ## Type specific Function. Deactivates Physics Process (debating on whether to leave this here or not).
 	set_physics_process(false)
 
-func _physics_process(delta): ## Gets Input and calls movement_handler(delta, direction).
+func _physics_process(_delta): ## Gets Input and calls movement_handler(direction).
 	var direction : Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
-	movement_handler(delta, direction)
+	movement_handler(direction)
 
-func movement_handler(_delta, direction): ## _physics_process() calls this, direction comes stright from Input.get_vector. Override with super() is recommended for Animations.
+func movement_handler(direction): ## _physics_process() calls this, direction comes stright from Input.get_vector. Override with super() is recommended for Animations. This can be used for Enemies, just specify the Direction.
 	velocity = direction * properties.speed
 	move_and_slide()
 	

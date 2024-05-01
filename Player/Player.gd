@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export_category("Settings")
 @export var animation: AnimationPlayer
 @export var properties: CharacterResource
 @export var save_manager: SaveManager

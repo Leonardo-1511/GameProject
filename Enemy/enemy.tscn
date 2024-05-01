@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnr1okev3rckw"]
+
+[ext_resource type="Texture2D" uid="uid://qhb2mbrowwlw" path="res://assets/Free RGW Sprites/Unity, Godot, GameMaker/Character_005.png" id="1_5bj2y"]
+[ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_rb46c"]
+[ext_resource type="PackedScene" uid="uid://driq0tbp5ujrf" path="res://components/health_component.tscn" id="2_gh3aa"]
+[ext_resource type="Script" path="res://Resources/OffensiveItemResource.gd" id="2_gukha"]
+[ext_resource type="PackedScene" uid="uid://bdco6gkb61prg" path="res://components/health_bar_component.tscn" id="5_v3blk"]
+
+[sub_resource type="Resource" id="Resource_2wfjo"]
+script = ExtResource("2_gukha")
+base_damage = 5
+modifiers = 1.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qot1m"]
+radius = 6.0
+height = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivkm8"]
+atlas = ExtResource("1_5bj2y")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3jpm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivkm8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_rb46c")
+equipped_item = SubResource("Resource_2wfjo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_qot1m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_u3jpm")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("2_gh3aa")]
+entity = NodePath("..")
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_v3blk")]
+health_component = NodePath("../HealthComponent")

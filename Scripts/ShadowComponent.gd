@@ -1,7 +1,6 @@
 extends Node2D
 class_name ShadowComponent
 
-@export_category("Settings")
 @export var sprite : Texture2D
 @export var shadowScale : Vector2
 @export var shadowOffset : Vector2

@@ -1,7 +1,6 @@
 extends Node
 class_name SaveManager
 
-signal StartSaving(resource)
 signal FinishedSaving
 
 @export_enum(".tres", ".res") var file_extension = ".res"
@@ -13,7 +12,7 @@ func _ready() -> void:
 	DirAccess.make_dir_absolute("user://save")
 	return
 
-func load() -> void:
+func load() -> void: ## Start loading for the Game. Only use this once.
 	var save_files = DirAccess.get_files_at("user://save/")
 	for file in save_files:
 		var resource = ResourceLoader.load("user://save/%s" % [file])
@@ -21,14 +20,14 @@ func load() -> void:
 	FinishedSaving.emit()
 	return
 
-func register(resource_saver: Callable) -> void:
+func register(resource_saver: Callable) -> void: ## Register a Function to save a Resource. The Function should return an Array with the Name and callable (function). Ex: ["PlayerSave", player_save]
 	if not resource_saver in registered_resources:
 		assert(typeof(resource_saver) == TYPE_CALLABLE)
 		print("Registered")
 		registered_resources.append(resource_saver)
 	return
 
-func save() -> void:
+func save() -> void: ## Start saving the Game. Please refrain from saving multiple times.
 	# Call all registered Callables in the Array and save the returns in another array.
 	for callable in registered_resources:
 		var resource = callable.call()

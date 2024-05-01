@@ -5,7 +5,7 @@ signal health_changed(current_health: int) ## Triggers on every Health change, p
 signal damaged(damage_amount: int) ## Triggers whenever the damage() function is called.
 signal death ## Triggers when the Player has exactly 0 HP. Checked on Health setter.
 
-@export var entity: Node2D
+@export var entity: Entity
 @onready var entity_resource: EntityResource = entity.properties
 
 

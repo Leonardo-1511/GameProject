@@ -1,26 +1,6 @@
-extends CharacterBody2D
-
-@export var animation: AnimationPlayer
-@export var properties: CharacterResource
+extends Entity
 @export var save_manager: SaveManager
 
-
-func _physics_process(_delta: float) -> void:
-	var direction : Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
-	velocity = direction * properties.speed
-
-	if direction.is_zero_approx():
-		animation.stop()
-	if direction.x == 1:
-		animation.play("Walk_Right")
-	if direction.x == -1:
-		animation.play("Walk_Left")
-	if direction.y == 1:
-		animation.play("Walk_Down")
-	if direction.y == -1:
-		animation.play("Walk_Up")
-
-	move_and_slide()
 
 func _update_after_load() -> void:
 	match properties.character_class:
@@ -33,10 +13,25 @@ func _update_after_load() -> void:
 	player_stats.text = text
 
 func _ready() -> void:
+	super()
 	_update_after_load()
 	save_manager.register(save_character)
 	save_manager.FinishedSaving.connect(load_character)
 	
+func movement_handler(delta, direction):
+	super(delta, direction)
+	
+	if direction.is_zero_approx():
+		animation.stop()
+	if direction.x == 1:
+		animation.play("Walk_Right")
+	if direction.x == -1:
+		animation.play("Walk_Left")
+	if direction.y == 1:
+		animation.play("Walk_Down")
+	if direction.y == -1:
+		animation.play("Walk_Up")
+
 func save_character() -> Array:
 	var player_save = PlayerSaveResource.new()
 	player_save.character = properties

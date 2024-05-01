@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dl0ejq8e45d8e"]
 
-[ext_resource type="Script" path="res://Player/test_player_class.gd" id="1_mg48p"]
+[ext_resource type="Script" path="res://Player/EntityClass.gd" id="1_mg48p"]
 [ext_resource type="Script" path="res://Resources/CharacterResource.gd" id="2_q7ful"]
 [ext_resource type="Texture2D" uid="uid://b8oaiyp1h85d7" path="res://icon.svg" id="3_bg21u"]
 [ext_resource type="Script" path="res://Resources/Item.gd" id="4_qedq6"]

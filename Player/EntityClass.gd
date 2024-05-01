@@ -1,3 +1,5 @@
+## Extends CharacterBody2D and all it's functions. This Class has all the Functions that are needed for a basic Enemy or Player. Animations are not inbuilt, only referenced for ease of use. Using this is recommended especially because it's easier to reference this type than CharacterBody2D (which could be something else).
+
 extends CharacterBody2D
 class_name Entity
 
@@ -5,7 +7,8 @@ class_name Entity
 @export var properties: EntityResource 		## These are NECESSARY for every Type except Object. (Still debating whether to support Objects here or not.)
 @export var animation: AnimationPlayer 		## AnimationPlayer for the Sprites, you need to code these Animations yourself though.
 @export var inventory: Array[ItemResource] 	## The Inventory for the Entity. Enemies should only have 1 Item, except overriden and coded otherwise.
-
+@export var health_component: HealthComponent ## This is to simplify the use of HealthComponents, as they are mostly hidden. Primary use is Health checking and Damaging.
+@export var equipped_weapon: OffensiveItemResource ## Weapon the Entity is currently using.
 
 func _ready() -> void: ## Calls a specific function depending on what type this Entity is (ex. _player() for PLAYER).
 	match entity_type:
@@ -29,5 +32,8 @@ func movement_handler(direction): ## _physics_process() calls this, direction co
 	velocity = direction * properties.speed
 	move_and_slide()
 	
-func damage(other: Entity): ## Does nothing currently.
-	pass
+func damage(other: Entity): ## Damage another Entity with the Equipped Weapon, also applies the modifier and degrades the Durability.
+	var damage_count = equipped_weapon.base_damage * equipped_weapon.modifiers
+	equipped_weapon.durability += -1
+	print(equipped_weapon.durability, "\n"+str(damage_count))
+	other.health_component.damage(damage_count)

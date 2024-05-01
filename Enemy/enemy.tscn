@@ -1,17 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnr1okev3rckw"]
+[gd_scene load_steps=8 format=3 uid="uid://cnr1okev3rckw"]
 
 [ext_resource type="Texture2D" uid="uid://qhb2mbrowwlw" path="res://assets/Free RGW Sprites/Unity, Godot, GameMaker/Character_005.png" id="1_5bj2y"]
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_rb46c"]
 [ext_resource type="PackedScene" uid="uid://driq0tbp5ujrf" path="res://components/health_component.tscn" id="2_gh3aa"]
-[ext_resource type="Script" path="res://Resources/EntityResource.gd" id="2_itswr"]
 [ext_resource type="PackedScene" uid="uid://bdco6gkb61prg" path="res://components/health_bar_component.tscn" id="5_v3blk"]
-
-[sub_resource type="Resource" id="Resource_tb0jq"]
-script = ExtResource("2_itswr")
-name = "Enemy"
-max_health = 25.0
-health = 25.0
-speed = 500.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qot1m"]
 radius = 6.0
@@ -32,10 +24,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_rb46c")
 entity_type = "ENEMY"
-properties = SubResource("Resource_tb0jq")
+health_component = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9)

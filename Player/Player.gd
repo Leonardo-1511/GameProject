@@ -18,8 +18,8 @@ func _ready() -> void:
 	save_manager.register(save_character)
 	save_manager.FinishedSaving.connect(load_character)
 	
-func movement_handler(delta, direction):
-	super(delta, direction)
+func movement_handler(direction):
+	super(direction)
 	
 	if direction.is_zero_approx():
 		animation.stop()

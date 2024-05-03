@@ -623,7 +623,7 @@ script = ExtResource("1_vf2hr")
 
 [node name="Player" parent="." node_paths=PackedStringArray("save_manager", "health_component") instance=ExtResource("1_uh1nu")]
 top_level = true
-position = Vector2(-157, -65)
+position = Vector2(-1005, -65)
 scale = Vector2(3, 3)
 save_manager = NodePath("../Managers/SaveManager")
 entity_type = "PLAYER"

@@ -1,7 +1,7 @@
 extends Entity
-@export var save_manager: SaveManager
+var save_manager: SaveManager = SaveManagerSingleton
 
-
+# INFO: PlayerStats are here.
 func _update_after_load() -> void:
 	match properties.character_class:
 		0: pass			 # Medium Class
@@ -40,9 +40,10 @@ func save_character() -> Array:
 	return ["PlayerSave", player_save]
 	
 func load_character() -> void:
-	var resource = save_manager.loaded_files["PlayerSave"].duplicate(true)
+	var resource: PlayerSaveResource = save_manager.loaded_files["PlayerSave"].duplicate(true)
 	properties = resource.character
 	transform = resource.position
-	print(resource.stats)
+	# INFO: This Prints the stats from PlayerSaveResource
+	print(resource.character)
 	_update_after_load()
 	return

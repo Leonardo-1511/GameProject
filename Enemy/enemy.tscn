@@ -1,45 +1,85 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnr1okev3rckw"]
+[gd_scene load_steps=13 format=3 uid="uid://beb54ffl56cao"]
 
-[ext_resource type="Texture2D" uid="uid://qhb2mbrowwlw" path="res://assets/Free RGW Sprites/Unity, Godot, GameMaker/Character_005.png" id="1_5bj2y"]
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_rb46c"]
 [ext_resource type="PackedScene" uid="uid://driq0tbp5ujrf" path="res://components/health_component.tscn" id="2_gh3aa"]
+[ext_resource type="Texture2D" uid="uid://bdglfelpa1w46" path="res://assets/Free RGW Sprites/Unity, Godot, GameMaker/Character_004.png" id="2_ubla5"]
+[ext_resource type="Script" path="res://Resources/EntityResource.gd" id="3_sfxo8"]
+[ext_resource type="Script" path="res://Resources/OffensiveItemResource.gd" id="4_udx3m"]
 [ext_resource type="PackedScene" uid="uid://bdco6gkb61prg" path="res://components/health_bar_component.tscn" id="5_v3blk"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qot1m"]
-radius = 6.0
-height = 20.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ivkm8"]
-atlas = ExtResource("1_5bj2y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6m6t"]
+atlas = ExtResource("2_ubla5")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_u3jpm"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_sppr2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivkm8")
+"texture": SubResource("AtlasTexture_u6m6t")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_wbin4"]
+script = ExtResource("3_sfxo8")
+name = ""
+max_health = 25.0
+health = 25.0
+speed = 450.0
+
+[sub_resource type="Resource" id="Resource_30ld7"]
+script = ExtResource("4_udx3m")
+base_damage = 5
+modifiers = 1.0
+item_name = "TestingSword"
+bonus = false
+durability = -1.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qot1m"]
+radius = 6.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4vpu4"]
+radius = 50.0
+
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
+position = Vector2(0, -33)
+scale = Vector2(3, 3)
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_rb46c")
+character_sprite_frames = SubResource("SpriteFrames_sppr2")
+aggro_circle_radius = 100.0
 entity_type = "ENEMY"
+properties = SubResource("Resource_wbin4")
 health_component = NodePath("HealthComponent")
+equipped_weapon = SubResource("Resource_30ld7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0.147011, -0.00217056)
 shape = SubResource("CapsuleShape2D_qot1m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -13)
-sprite_frames = SubResource("SpriteFrames_u3jpm")
+position = Vector2(0.147011, -4.00217)
+sprite_frames = SubResource("SpriteFrames_sppr2")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("2_gh3aa")]
+position = Vector2(0.147011, -0.00217056)
 entity = NodePath("..")
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_v3blk")]
-position = Vector2(0, -27)
+position = Vector2(0.147011, -18.0022)
 health_component = NodePath("../HealthComponent")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4vpu4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,8 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://nvcn8k4856gc"]
+[gd_scene load_steps=32 format=3 uid="uid://nvcn8k4856gc"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_48mt8"]
 [ext_resource type="Texture2D" uid="uid://bow6k4nvgkkvj" path="res://assets/Free RGW Sprites/Unity, Godot, GameMaker/Character_001.png" id="2_1ksph"]
 [ext_resource type="Texture2D" uid="uid://bwrolh5u7xj7t" path="res://assets/Free RGW Sprites/16x16/Character_001.png" id="3_4op5d"]
+[ext_resource type="PackedScene" uid="uid://ctumapp4fve76" path="res://components/shadow_component.tscn" id="4_5j8q1"]
+[ext_resource type="Texture2D" uid="uid://chwq1duinw7bd" path="res://assets/Self made/Shadow.png" id="5_weg4x"]
+[ext_resource type="PackedScene" uid="uid://driq0tbp5ujrf" path="res://components/health_component.tscn" id="6_6ax30"]
+[ext_resource type="PackedScene" uid="uid://bdco6gkb61prg" path="res://components/health_bar_component.tscn" id="7_tavlw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bg0yh"]
 radius = 6.0
@@ -296,12 +300,18 @@ _data = {
 "Walk_Up": SubResource("Animation_ponwv")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation", "health_component")]
 position = Vector2(0, -8.61)
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_48mt8")
+entity_type = "PLAYER"
 animation = NodePath("AnimationPlayer")
+health_component = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 5
 shape = SubResource("CapsuleShape2D_bg0yh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -313,3 +323,17 @@ animation = &"Walk_Up"
 libraries = {
 "": SubResource("AnimationLibrary_j6mf6")
 }
+
+[node name="ShadowComponent" parent="." instance=ExtResource("4_5j8q1")]
+show_behind_parent = true
+sprite = ExtResource("5_weg4x")
+shadowScale = Vector2(0.11, 0.11)
+shadowOffset = Vector2(0, 6)
+opacity = 0.75
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("6_6ax30")]
+entity = NodePath("..")
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_tavlw")]
+position = Vector2(0, -17)
+health_component = NodePath("../HealthComponent")

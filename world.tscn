@@ -9,15 +9,15 @@
 [ext_resource type="StyleBox" uid="uid://b8g44bngamvhf" path="res://assets/Tiny Wonder UI Free/new_style_box_texture.tres" id="6_qqmrs"]
 [ext_resource type="PackedScene" uid="uid://beb54ffl56cao" path="res://Enemy/enemy.tscn" id="8_b378p"]
 
-[sub_resource type="Resource" id="Resource_f4bal"]
+[sub_resource type="Resource" id="Resource_qjdxc"]
 script = ExtResource("3_5444a")
 character_class = 2
-mana_level = 5
-character_level = 5
+mana_level = 2
+character_level = 2
 name = "Tester"
-max_health = 25.0
-health = 25.0
-speed = 500.0
+max_health = 150.0
+health = 150.0
+base_speed = 500.0
 
 [sub_resource type="Resource" id="Resource_y3y3h"]
 script = ExtResource("4_0jqd5")
@@ -607,7 +607,7 @@ func button_press():
 top_level = true
 position = Vector2(241, 349)
 scale = Vector2(3, 3)
-properties = SubResource("Resource_f4bal")
+properties = SubResource("Resource_qjdxc")
 equipped_weapon = SubResource("Resource_y3y3h")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

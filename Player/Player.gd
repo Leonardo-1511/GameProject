@@ -7,6 +7,7 @@ func _update_after_load() -> void:
 		0: pass			 # Medium Class
 		1: properties.speed *= 0.8  # Heavy class
 		2: properties.speed *= 1.2  # Light Class
+	print(properties.speed)
 	
 	var player_stats := get_node("Camera2D/PlayerStats")
 	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [properties.name, properties.health, properties.character_level, properties.characterClass.keys()[properties.character_class], properties.speed]
@@ -40,10 +41,12 @@ func save_character() -> Array:
 	return ["PlayerSave", player_save]
 	
 func load_character() -> void:
-	var resource: PlayerSaveResource = save_manager.loaded_files["PlayerSave"].duplicate(true)
+	var resource: PlayerSaveResource = save_manager.get_resource("PlayerSave")
+	if not resource: return
 	properties = resource.character
 	transform = resource.position
 	# INFO: This Prints the stats from PlayerSaveResource
-	print(resource.character)
+	print(resource.stats)
+	super._ready()
 	_update_after_load()
 	return

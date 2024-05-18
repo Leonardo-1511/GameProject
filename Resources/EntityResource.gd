@@ -8,3 +8,4 @@ class_name EntityResource
 	set(new_val):
 		health = clampf(new_val, 0, max_health)
 @export var base_speed: float = 500 ## Speed for the Character without modifiers.
+var speed ## The actual Speed, with modifiers. Changed within code (esp. classes modifier)

@@ -34,3 +34,8 @@ func save() -> void: ## Start saving the Game. Please refrain from saving multip
 		if not resource[1] is Resource: # Check if the value in the array is an Object (aka Resource).
 			continue
 		ResourceSaver.save(resource[1], "user://save/%s" % [resource[0]+file_extension])
+
+func get_resource(resource_name: String) -> Resource: ## Gets and Duplicates one of the loaded named Resources if it exists, otherwise returns null.
+	if resource_name in loaded_files:
+		return loaded_files[resource_name].duplicate(true)
+	return null

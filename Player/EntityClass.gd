@@ -11,6 +11,7 @@ class_name Entity
 
 # INFO: Prints what Entity Type the Object is. (remove later)
 func _ready() -> void: ## Calls a specific function depending on what type this Entity is (ex. _player() for PLAYER).
+	properties.speed = properties.base_speed
 	match entity_type:
 		"PLAYER": print("player"); _player()
 		"ENEMY": print("enemy"); _enemy()

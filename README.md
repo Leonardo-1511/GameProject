@@ -1,5 +1,5 @@
 # GameProject
-[![EN](https://img.shields.io/badge/lang-EN-green)](https://github.com/Leonardo-1511/GameProject/blob/master/README.en-EN.md)
+[![EN](https://img.shields.io/badge/lang-EN-green)](https://github.com/Leonardo-1511/GameProject/blob/master/README.md)
 [![DE](https://img.shields.io/badge/lang-DE-blue)](https://github.com/Leonardo-1511/GameProject/blob/master/README.de-DE.md)
 
 

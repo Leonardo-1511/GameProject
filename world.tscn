@@ -1,12 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://c1gaikjhfuhb2"]
+[gd_scene load_steps=15 format=3 uid="uid://c1gaikjhfuhb2"]
 
 [ext_resource type="PackedScene" uid="uid://nvcn8k4856gc" path="res://Player/Player.tscn" id="1_uh1nu"]
 [ext_resource type="Texture2D" uid="uid://oong1108mht1" path="res://assets/PixelWoods/Terrain(main)/terrain tiles.png" id="2_gaekl"]
 [ext_resource type="Script" path="res://Resources/CharacterResource.gd" id="3_5444a"]
 [ext_resource type="Script" path="res://Resources/OffensiveItemResource.gd" id="4_0jqd5"]
-[ext_resource type="FontFile" uid="uid://ktq4yr3mqwyq" path="res://Fonts/SedanSC-Regular.ttf" id="5_8toqy"]
-[ext_resource type="Texture2D" uid="uid://72omue5pqdub" path="res://assets/Tiny Wonder UI Free/buttons free.png" id="5_dbq6r"]
-[ext_resource type="StyleBox" uid="uid://b8g44bngamvhf" path="res://assets/Tiny Wonder UI Free/new_style_box_texture.tres" id="6_qqmrs"]
 [ext_resource type="PackedScene" uid="uid://beb54ffl56cao" path="res://Enemy/enemy.tscn" id="8_b378p"]
 
 [sub_resource type="Resource" id="Resource_qjdxc"]
@@ -33,12 +30,6 @@ generate_mipmaps = true
 [sub_resource type="LabelSettings" id="LabelSettings_gpsps"]
 font = SubResource("SystemFont_ypht7")
 font_size = 24
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ak4pp"]
-texture = ExtResource("5_dbq6r")
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-region_rect = Rect2(3, 2, 42, 28)
 
 [sub_resource type="GDScript" id="GDScript_3qdse"]
 resource_local_to_scene = true
@@ -639,13 +630,6 @@ columns = 2
 texture_filter = 1
 texture_repeat = 2
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_8toqy")
-theme_override_styles/normal = SubResource("StyleBoxTexture_ak4pp")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ak4pp")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ak4pp")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_ak4pp")
-theme_override_styles/focus = SubResource("StyleBoxTexture_ak4pp")
 text = "Load"
 script = SubResource("GDScript_3qdse")
 player = NodePath("../../..")
@@ -653,9 +637,6 @@ player = NodePath("../../..")
 [node name="SaveButton" type="Button" parent="Player/Camera2D/GridContainer"]
 texture_filter = 1
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_8toqy")
-theme_override_styles/normal = ExtResource("6_qqmrs")
 text = "Save"
 script = SubResource("GDScript_vtmll")
 

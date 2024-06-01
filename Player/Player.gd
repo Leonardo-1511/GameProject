@@ -7,8 +7,7 @@ func _update_after_load() -> void:
 		0: pass			 # Medium Class
 		1: properties.speed *= 0.8  # Heavy class
 		2: properties.speed *= 1.2  # Light Class
-	print(properties.speed)
-	
+
 	var player_stats := get_node("Camera2D/PlayerStats")
 	var text := "Name: %s\nHealth: %s\nLevel: %s\nClass: %s\nSpeed: %s" % [properties.name, properties.health, properties.character_level, properties.characterClass.keys()[properties.character_class], properties.speed]
 	player_stats.text = text
@@ -18,8 +17,8 @@ func _ready() -> void:
 	_update_after_load()
 	save_manager.register(save_character)
 	save_manager.FinishedSaving.connect(load_character)
-	
-func movement_handler(direction):
+
+func movement_handler(direction: Vector2) -> void:
 	super(direction)
 	
 	if direction.is_zero_approx():
@@ -34,7 +33,7 @@ func movement_handler(direction):
 		animation.play("Walk_Up")
 
 func save_character() -> Array:
-	var player_save = PlayerSaveResource.new()
+	var player_save := PlayerSaveResource.new()
 	player_save.character = properties
 	player_save.position = transform
 	player_save.stats = {"debug": true}

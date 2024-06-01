@@ -18,24 +18,25 @@ func _ready() -> void: ## Calls a specific function depending on what type this 
 		"OBJECT": print("object"); _object()
 		_: print(entity_type+" notfound"); assert(false, "Entity has no Type.")
 
-func _player(): ## Type specific Function. Does nothing.
+func _player() -> void: ## Type specific Function. Does nothing.
 	pass
-func _enemy(): ## Type specific Function. Deactivates Physics Process
+func _enemy() -> void: ## Type specific Function. Deactivates Physics Process
 	set_physics_process(false)
-func _object(): ## Type specific Function. Deactivates Physics Process (debating on whether to leave this here or not).
+func _object() -> void: ## Type specific Function. Deactivates Physics Process (debating on whether to leave this here or not).
 	set_physics_process(false)
 
-func _physics_process(_delta): ## Gets Input and calls movement_handler(direction).
-	var direction : Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
-	movement_handler(direction)
+func _physics_process(_delta: float) -> void: ## Gets Input and calls movement_handler(direction).
+	if entity_type == "PLAYER":
+		var direction : Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
+		movement_handler(direction)
 
-func movement_handler(direction): ## _physics_process() calls this, direction comes stright from Input.get_vector. Override with super() is recommended for Animations. This can be used for Enemies, just specify the Direction.
+func movement_handler(direction: Vector2) -> void: ## _physics_process() calls this, direction comes stright from Input.get_vector. Override with super() is recommended for Animations. This can be used for Enemies, just specify the Direction.
 	velocity = direction * properties.speed
 	move_and_slide()
 	
 #INFO: Prints Damage and durability.
-func damage(other: Entity): ## Damage another Entity with the Equipped Weapon, also applies the modifier and degrades the Durability (if applicable).
-	var damage_count = equipped_weapon.base_damage * equipped_weapon.modifiers
+func damage(other: Entity) -> void: ## Damage another Entity with the Equipped Weapon, also applies the modifier and degrades the Durability (if applicable).
+	var damage_count := equipped_weapon.base_damage * equipped_weapon.modifiers
 	equipped_weapon.durability += -1
 	print(equipped_weapon.durability, "\n"+str(damage_count))
 	other.health_component.damage(damage_count)

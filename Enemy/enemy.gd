@@ -10,19 +10,20 @@ extends Entity
 	set(new_value):
 		aggro_circle_radius = clampf(new_value, 1, 300)
 		if Engine.is_editor_hint():
-			$Area2D/CollisionShape2D.shape.radius = aggro_circle_radius
+			$Area2D/AggroCircle.shape.radius = aggro_circle_radius
 
 @onready var area: Area2D = $Area2D
-var target = null
+@onready var collision: CollisionShape2D = $CollisionShape2D
+var target: Entity = null
 
-func _ready():
+func _ready() -> void:
 	super()
-	$Area2D/CollisionShape2D.shape = CircleShape2D.new()
-	$Area2D/CollisionShape2D.shape.radius = aggro_circle_radius
+	$Area2D/AggroCircle.shape = CircleShape2D.new()
+	$Area2D/AggroCircle.shape.radius = aggro_circle_radius
 	if Engine.is_editor_hint(): return
 	$AnimatedSprite2D.sprite_frames = character_sprite_frames
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if not target: return
 	velocity = global_position.direction_to(target.global_position) * properties.speed
 	move_and_slide()
@@ -34,8 +35,8 @@ func _check_player_area() -> Node2D: ## Searches Aggro Area to check if the Play
 	return null
 
 # INFO: Area entered and exited signals are connected here. I do not know whether this is good to leave or not, but it works so im leaving it here.
-func _on_area_2d_body_entered(_body):
+func _on_area_2d_body_entered(_body: Node2D) -> void:
 	target = _check_player_area()
 
-func _on_area_2d_body_exited(_body):
+func _on_area_2d_body_exited(_body: Node2D) -> void:
 	target = _check_player_area()

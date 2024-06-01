@@ -24,16 +24,16 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_wbin4"]
 script = ExtResource("3_sfxo8")
-name = ""
+name = "Enemy"
 max_health = 25.0
 health = 25.0
 base_speed = 500.0
 
-[sub_resource type="Resource" id="Resource_30ld7"]
+[sub_resource type="Resource" id="Resource_hi0qj"]
 script = ExtResource("4_udx3m")
-base_damage = 5
+base_damage = 2
 modifiers = 1.0
-item_name = "TestingSword"
+item_name = "Rough Sword"
 bonus = false
 durability = -1.0
 
@@ -41,21 +41,21 @@ durability = -1.0
 radius = 6.0
 height = 20.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fvf6q"]
-radius = 50.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_nh2h5"]
+radius = 100.0
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
 position = Vector2(0, -33)
 scale = Vector2(3, 3)
 collision_layer = 4
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_rb46c")
 character_sprite_frames = SubResource("SpriteFrames_sppr2")
 aggro_circle_radius = 100.0
 entity_type = "ENEMY"
 properties = SubResource("Resource_wbin4")
 health_component = NodePath("HealthComponent")
-equipped_weapon = SubResource("Resource_30ld7")
+equipped_weapon = SubResource("Resource_hi0qj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.147011, -0.00217056)
@@ -75,11 +75,11 @@ health_component = NodePath("../HealthComponent")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 6
 input_pickable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_fvf6q")
+[node name="AggroCircle" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_nh2h5")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

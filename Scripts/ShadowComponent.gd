@@ -1,7 +1,6 @@
 extends Node2D
 class_name ShadowComponent
 
-@export_category("Settings")
 @export var sprite : Texture2D
 @export var shadowScale : Vector2
 @export var shadowOffset : Vector2
@@ -9,8 +8,11 @@ class_name ShadowComponent
 
 @onready var shadow : Sprite2D = get_node("Shadow")
 
-func _ready() -> void:
+func set_shadow_properties():
 	shadow.modulate.a = opacity
 	shadow.texture = sprite
 	shadow.position = shadowOffset
 	shadow.scale = shadowScale
+
+func _ready() -> void:
+	set_shadow_properties()
